@@ -45,7 +45,7 @@ module.exports.getImage = async (req, res, next) => {
       return next(createHttpError(404));
     }
 
-    res.status(200).send(image);
+    res.status(200).send({ data: image });
   } catch (err) {
     next(err);
   }

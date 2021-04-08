@@ -58,7 +58,7 @@ module.exports.createHero = async (req, res, next) => {
 
 module.exports.getHeroes = async (req, res, next) => {
   try {
-    // const {} = req;
+    const { pagination } = req;
     const heroes = await Superhero.findAll({
       include: [
         {
@@ -72,11 +72,13 @@ module.exports.getHeroes = async (req, res, next) => {
           as: 'images',
         },
       ],
+      order: [['updated_at', 'DESC']],
+      ...pagination,
     });
     if (!heroes.length) {
       return next(createHttpError(404));
     }
-    res.send(heroes);
+    res.send({ data: heroes });
   } catch (err) {
     next(err);
   }
