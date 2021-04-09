@@ -22,7 +22,7 @@ module.exports.createHero = async (req, res, next) => {
       });
     }
 
-    if (body.superPowers) {
+    if (body?.superPowers?.length) {
       const powers = body.superPowers.map(power => ({
         name: power,
         heroId: hero.id,
